@@ -1,5 +1,5 @@
 /* Generated automatically by the program 'build/genpreds'
-   from the machine description file '/home/fluxi/android/xxChain/source/gcc-linaro-4.6-2012.01/gcc/config/arm/arm.md'.  */
+   from the machine description file '/home/fluxi/android/xxChain/source/gcc-linaro-4.6-2012.02/gcc/config/arm/arm.md'.  */
 
 #ifndef GCC_TM_PREDS_H
 #define GCC_TM_PREDS_H

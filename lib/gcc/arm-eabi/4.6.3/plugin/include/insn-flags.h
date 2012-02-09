@@ -34,6 +34,7 @@
 #define HAVE_extendsidi2 (TARGET_32BIT )
 #define HAVE_thumb1_extendhisi2 (TARGET_THUMB1)
 #define HAVE_thumb1_extendqisi2 (TARGET_THUMB1)
+#define HAVE_pic_load_addr_unified (flag_pic)
 #define HAVE_pic_load_addr_32bit (TARGET_32BIT && flag_pic)
 #define HAVE_pic_load_addr_thumb1 (TARGET_THUMB1 && flag_pic)
 #define HAVE_pic_add_dot_plus_four (TARGET_THUMB)
@@ -2366,6 +2367,7 @@ extern rtx        gen_extendhidi2                       (rtx, rtx);
 extern rtx        gen_extendsidi2                       (rtx, rtx);
 extern rtx        gen_thumb1_extendhisi2                (rtx, rtx);
 extern rtx        gen_thumb1_extendqisi2                (rtx, rtx);
+extern rtx        gen_pic_load_addr_unified             (rtx, rtx, rtx);
 extern rtx        gen_pic_load_addr_32bit               (rtx, rtx);
 extern rtx        gen_pic_load_addr_thumb1              (rtx, rtx);
 extern rtx        gen_pic_add_dot_plus_four             (rtx, rtx, rtx);
