@@ -155,6 +155,14 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 /* Include GTHREAD_FILE if one is defined.  */
 #elif defined(_GLIBCXX_HAVE_GTHR_DEFAULT)
 #if __GXX_WEAK__
+/* The pe-coff weak support isn't fully compatible to ELF's weak.
+   For static libraries it might would work, but as we need to deal
+   with shared versions too, we disable it for mingw-targets.  */
+#ifdef _GLIBCXX___MINGW32_GLIBCXX___
+#undef _GLIBCXX_GTHREAD_USE_WEAK
+#define _GLIBCXX_GTHREAD_USE_WEAK 0
+#endif
+
 #ifndef _GLIBCXX_GTHREAD_USE_WEAK
 #define _GLIBCXX_GTHREAD_USE_WEAK 1
 #endif
