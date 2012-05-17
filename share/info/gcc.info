@@ -1,5 +1,5 @@
 This is doc/gcc.info, produced by makeinfo version 4.13 from
-/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.04/gcc/doc/gcc.texi.
+/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/doc/gcc.texi.
 
 Copyright (C) 1988, 1989, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
@@ -61,7 +61,7 @@ Introduction
 
 This manual documents how to use the GNU compilers, as well as their
 features and incompatibilities, and how to report bugs.  It corresponds
-to the compilers (Linaro-A9-XX.2012.04) version 4.7.1.  The internals
+to the compilers (Linaro-A9-XX.2012.05) version 4.7.1.  The internals
 of the GNU compilers, including how to port them to new targets and
 some information about how to write front ends for new languages, are
 documented in a separate manual.  *Note Introduction: (gccint)Top.
@@ -20286,25 +20286,26 @@ not:
      #ifdef __FLASH
      const __flash int var = 1;
 
-     int read_i (void)
+     int read_var (void)
      {
-         return i;
+         return var;
      }
      #else
-     #include <avr/pgmspace.h> /* From avr-libc */
+     #include <avr/pgmspace.h> /* From AVR-LibC */
 
      const int var PROGMEM = 1;
 
-     int read_i (void)
+     int read_var (void)
      {
-         return (int) pgm_read_word (&i);
+         return (int) pgm_read_word (&var);
      }
      #endif /* __FLASH */
 
  Notice that attribute *note `progmem': AVR Variable Attributes.
 locates data in flash but accesses to these data will read from generic
 address space, i.e.  from RAM, so that you need special accessors like
-`pgm_read_byte' from avr-libc (http://nongnu.org/avr-libc/user-manual).
+`pgm_read_byte' from AVR-LibC (http://nongnu.org/avr-libc/user-manual)
+together with attribute `progmem'.
 
  Limitations and caveats
 
@@ -20313,7 +20314,7 @@ address space, i.e.  from RAM, so that you need special accessors like
      address space that supports reading across the 64 KiB flash
      segment boundaries is `__memx'.
 
-   * If you use one if the `__flashN' address spaces you will have to
+   * If you use one of the `__flashN' address spaces you will have to
      arrange your linker skript to locate the `.progmemN.data' sections
      according to your needs.
 
@@ -21499,6 +21500,46 @@ attributes.
 
      This attribute is ignored for R8C target.
 
+`ifunc ("RESOLVER")'
+     The `ifunc' attribute is used to mark a function as an indirect
+     function using the STT_GNU_IFUNC symbol type extension to the ELF
+     standard.  This allows the resolution of the symbol value to be
+     determined dynamically at load time, and an optimized version of
+     the routine can be selected for the particular processor or other
+     system characteristics determined then.  To use this attribute,
+     first define the implementation functions available, and a
+     resolver function that returns a pointer to the selected
+     implementation function.  The implementation functions'
+     declarations must match the API of the function being implemented,
+     the resolver's declaration is be a function returning pointer to
+     void function returning void:
+
+          void *my_memcpy (void *dst, const void *src, size_t len)
+          {
+            ...
+          }
+
+          static void (*resolve_memcpy (void)) (void)
+          {
+            return my_memcpy; // we'll just always select this routine
+          }
+
+     The exported header file declaring the function the user calls
+     would contain:
+
+          extern void *memcpy (void *, const void *, size_t);
+
+     allowing the user to call this as a regular function, unaware of
+     the implementation.  Finally, the indirect function needs to be
+     defined in the same translation unit as the resolver function:
+
+          void *memcpy (void *, const void *, size_t)
+               __attribute__ ((ifunc ("resolve_memcpy")));
+
+     Indirect functions cannot be weak, and require a recent binutils
+     (at least version 2.20.1), and GNU C library (at least version
+     2.11.1).
+
 `interrupt'
      Use this attribute on the ARM, AVR, CR16, Epiphany, M32C, M32R/D,
      m68k, MeP, MIPS, RL78, RX and Xstormy16 ports to indicate that the
@@ -21512,7 +21553,13 @@ attributes.
      MicroBlaze, and SH processors can be specified via the
      `interrupt_handler' attribute.
 
-     Note, on the AVR, interrupts will be enabled inside the function.
+     Note, on the AVR, the hardware globally disables interrupts when an
+     interrupt is executed.  The first instruction of an interrupt
+     handler declared with this attribute will be a `SEI' instruction to
+     re-enable interrupts.  See also the `signal' function attribute
+     that does not insert a `SEI' instuction.  If both `signal' and
+     `interrupt' are specified for the same function, `signal' will be
+     silently ignored.
 
      Note, for the ARM, you can specify the kind of interrupt to be
      handled by adding an optional parameter to the interrupt attribute
@@ -21594,46 +21641,6 @@ attributes.
      On RL78, use `brk_interrupt' instead of `interrupt' for handlers
      intended to be used with the `BRK' opcode (i.e.  those that must
      end with `RETB' instead of `RETI').
-
-`ifunc ("RESOLVER")'
-     The `ifunc' attribute is used to mark a function as an indirect
-     function using the STT_GNU_IFUNC symbol type extension to the ELF
-     standard.  This allows the resolution of the symbol value to be
-     determined dynamically at load time, and an optimized version of
-     the routine can be selected for the particular processor or other
-     system characteristics determined then.  To use this attribute,
-     first define the implementation functions available, and a
-     resolver function that returns a pointer to the selected
-     implementation function.  The implementation functions'
-     declarations must match the API of the function being implemented,
-     the resolver's declaration is be a function returning pointer to
-     void function returning void:
-
-          void *my_memcpy (void *dst, const void *src, size_t len)
-          {
-            ...
-          }
-
-          static void (*resolve_memcpy (void)) (void)
-          {
-            return my_memcpy; // we'll just always select this routine
-          }
-
-     The exported header file declaring the function the user calls
-     would contain:
-
-          extern void *memcpy (void *, const void *, size_t);
-
-     allowing the user to call this as a regular function, unaware of
-     the implementation.  Finally, the indirect function needs to be
-     defined in the same translation unit as the resolver function:
-
-          void *memcpy (void *, const void *, size_t)
-               __attribute__ ((ifunc ("resolve_memcpy")));
-
-     Indirect functions cannot be weak, and require a recent binutils
-     (at least version 2.20.1), and GNU C library (at least version
-     2.11.1).
 
 `interrupt_handler'
      Use this attribute on the Blackfin, m68k, H8/300, H8/300H, H8S,
@@ -22174,10 +22181,21 @@ attributes.
 
 `signal'
      Use this attribute on the AVR to indicate that the specified
-     function is a signal handler.  The compiler will generate function
-     entry and exit sequences suitable for use in a signal handler when
-     this attribute is present.  Interrupts will be disabled inside the
-     function.
+     function is an interrupt handler.  The compiler will generate
+     function entry and exit sequences suitable for use in an interrupt
+     handler when this attribute is present.
+
+     See also the `interrupt' function attribute.
+
+     The AVR hardware globally disables interrupts when an interrupt is
+     executed.  Interrupt handler functions defined with the `signal'
+     attribute do not re-enable interrupts.  It is save to enable
+     interrupts in a `signal' handler.  This "save" only applies to the
+     code generated by the compiler and not to the IRQ-layout of the
+     application which is responsibility of the application.
+
+     If both `signal' and `interrupt' are specified for the same
+     function, `signal' will be silently ignored.
 
 `sp_switch'
      Use this attribute on the SH to indicate an `interrupt_handler'
@@ -23354,7 +23372,7 @@ attributes.
 
      In order to read data located with the `progmem' attribute
      (inline) assembler must be used.
-          /* Use custom macros from avr-libc (http://nongnu.org/avr-libc/user-manual) */
+          /* Use custom macros from AVR-LibC (http://nongnu.org/avr-libc/user-manual) */
           #include <avr/pgmspace.h>
 
           /* Locate var in flash memory */
@@ -46932,7 +46950,7 @@ look up both forms.
 * finput-charset:                        Preprocessor Options.
                                                              (line  549)
 * finstrument-functions <1>:             Function Attributes.
-                                                             (line  938)
+                                                             (line  944)
 * finstrument-functions:                 Code Gen Options.   (line  293)
 * finstrument-functions-exclude-file-list: Code Gen Options. (line  330)
 * finstrument-functions-exclude-function-list: Code Gen Options.
@@ -47174,7 +47192,7 @@ look up both forms.
 * fsingle-precision-constant:            Optimize Options.   (line 2009)
 * fsplit-ivs-in-unroller:                Optimize Options.   (line 1239)
 * fsplit-stack <1>:                      Function Attributes.
-                                                             (line  943)
+                                                             (line  949)
 * fsplit-stack:                          Code Gen Options.   (line  415)
 * fsplit-wide-types:                     Optimize Options.   (line  428)
 * fstack-check:                          Code Gen Options.   (line  362)
@@ -49194,7 +49212,7 @@ Keyword Index
 * #pragma implementation, implied:       C++ Interface.      (line   46)
 * #pragma interface:                     C++ Interface.      (line   20)
 * #pragma, reason for not using:         Function Attributes.
-                                                             (line 1806)
+                                                             (line 1823)
 * $:                                     Dollar Signs.       (line    6)
 * % in constraint:                       Modifiers.          (line   45)
 * %include:                              Spec Files.         (line   27)
@@ -49404,12 +49422,12 @@ Keyword Index
 * __declspec(dllimport):                 Function Attributes.
                                                              (line  294)
 * __ea SPU Named Address Spaces:         Named Address Spaces.
-                                                             (line  158)
+                                                             (line  159)
 * __extension__:                         Alternate Keywords. (line   30)
 * __far M32C Named Address Spaces:       Named Address Spaces.
-                                                             (line  142)
+                                                             (line  143)
 * __far RL78 Named Address Spaces:       Named Address Spaces.
-                                                             (line  150)
+                                                             (line  151)
 * __flash AVR Named Address Spaces:      Named Address Spaces.
                                                              (line   31)
 * __flash1 AVR Named Address Spaces:     Named Address Spaces.
@@ -49490,7 +49508,7 @@ Keyword Index
 * alloca:                                Other Builtins.     (line    6)
 * alloca vs variable-length arrays:      Variable Length.    (line   26)
 * Allow nesting in an interrupt handler on the Blackfin processor.: Function Attributes.
-                                                             (line  927)
+                                                             (line  933)
 * alternate keywords:                    Alternate Keywords. (line    6)
 * always_inline function attribute:      Function Attributes.
                                                              (line   90)
@@ -49599,7 +49617,7 @@ Keyword Index
 * cacoshl:                               Other Builtins.     (line    6)
 * cacosl:                                Other Builtins.     (line    6)
 * callee_pop_aggregate_return attribute: Function Attributes.
-                                                             (line  887)
+                                                             (line  893)
 * calling functions through the function vector on H8/300, M16C, M32C and SH2A processors: Function Attributes.
                                                              (line  532)
 * calloc:                                Other Builtins.     (line    6)
@@ -49655,7 +49673,7 @@ Keyword Index
 * code generation conventions:           Code Gen Options.   (line    6)
 * code, mixed with declarations:         Mixed Declarations. (line    6)
 * cold function attribute:               Function Attributes.
-                                                             (line 1133)
+                                                             (line 1139)
 * command options:                       Invoking GCC.       (line    6)
 * comments, C++ style:                   C++ Comments.       (line    6)
 * common attribute:                      Variable Attributes.
@@ -49865,14 +49883,14 @@ Keyword Index
 * fmodf:                                 Other Builtins.     (line    6)
 * fmodl:                                 Other Builtins.     (line    6)
 * force_align_arg_pointer attribute:     Function Attributes.
-                                                             (line 1175)
+                                                             (line 1181)
 * format function attribute:             Function Attributes.
                                                              (line  420)
 * format_arg function attribute:         Function Attributes.
                                                              (line  485)
 * Fortran:                               G++ and GCC.        (line    6)
 * forwarder_section attribute:           Function Attributes.
-                                                             (line  639)
+                                                             (line  685)
 * forwarding calls:                      Constructing Calls. (line    6)
 * fprintf:                               Other Builtins.     (line    6)
 * fprintf_unlocked:                      Other Builtins.     (line    6)
@@ -49888,17 +49906,17 @@ Keyword Index
 * fscanf:                                Other Builtins.     (line    6)
 * fscanf, and constant strings:          Incompatibilities.  (line   17)
 * function addressability on the M32R/D: Function Attributes.
-                                                             (line  847)
+                                                             (line  853)
 * function attributes:                   Function Attributes.
                                                              (line    6)
 * function pointers, arithmetic:         Pointer Arith.      (line    6)
 * function prototype declarations:       Function Prototypes.
                                                              (line    6)
 * function without a prologue/epilogue code: Function Attributes.
-                                                             (line  904)
+                                                             (line  910)
 * function, size of pointer to:          Pointer Arith.      (line    6)
 * functions called via pointer on the RS/6000 and PowerPC: Function Attributes.
-                                                             (line  802)
+                                                             (line  808)
 * functions in arbitrary sections:       Function Attributes.
                                                              (line    6)
 * functions that are dynamically resolved: Function Attributes.
@@ -49924,7 +49942,7 @@ Keyword Index
 * functions that return more than once:  Function Attributes.
                                                              (line    6)
 * functions which do not handle memory bank switching on 68HC11/68HC12: Function Attributes.
-                                                             (line  917)
+                                                             (line  923)
 * functions which handle memory bank switching: Function Attributes.
                                                              (line  375)
 * functions with non-null pointer arguments: Function Attributes.
@@ -49975,7 +49993,7 @@ Keyword Index
 * hosted environment:                    Standards.          (line   13)
 * hosted implementation:                 Standards.          (line   13)
 * hot function attribute:                Function Attributes.
-                                                             (line 1120)
+                                                             (line 1126)
 * HPPA Options:                          HPPA Options.       (line    6)
 * HR fixed-suffix:                       Fixed-Point.        (line    6)
 * hr fixed-suffix:                       Fixed-Point.        (line    6)
@@ -49994,7 +50012,7 @@ Keyword Index
 * identifier names, dollar signs in:     Dollar Signs.       (line    6)
 * identifiers, names in assembler code:  Asm Labels.         (line    6)
 * ifunc attribute:                       Function Attributes.
-                                                             (line  689)
+                                                             (line  593)
 * ilogb:                                 Other Builtins.     (line    6)
 * ilogbf:                                Other Builtins.     (line    6)
 * ilogbl:                                Other Builtins.     (line    6)
@@ -50008,9 +50026,9 @@ Keyword Index
 * increment operators:                   Bug Criteria.       (line   17)
 * index:                                 Other Builtins.     (line    6)
 * indirect calls on ARM:                 Function Attributes.
-                                                             (line  792)
+                                                             (line  798)
 * indirect calls on MIPS:                Function Attributes.
-                                                             (line  814)
+                                                             (line  820)
 * init_priority attribute:               C++ Attributes.     (line    9)
 * initializations in expressions:        Compound Literals.  (line    6)
 * initializers with labeled elements:    Designated Inits.   (line    6)
@@ -50027,12 +50045,14 @@ Keyword Index
 * intermediate C version, nonexistent:   G++ and GCC.        (line   35)
 * interrupt handler functions:           Function Attributes.
                                                              (line  140)
+* interrupt handler functions on the AVR processors: Function Attributes.
+                                                             (line 1272)
 * interrupt handler functions on the Blackfin, m68k, H8/300 and SH processors: Function Attributes.
-                                                             (line  729)
+                                                             (line  735)
 * interrupt service routines on ARM:     Function Attributes.
-                                                             (line  744)
+                                                             (line  750)
 * interrupt thread functions on fido:    Function Attributes.
-                                                             (line  736)
+                                                             (line  742)
 * introduction:                          Top.                (line    6)
 * invalid assembly code:                 Bug Criteria.       (line   12)
 * invalid input:                         Bug Criteria.       (line   42)
@@ -50088,7 +50108,7 @@ Keyword Index
 * K fixed-suffix:                        Fixed-Point.        (line    6)
 * k fixed-suffix:                        Fixed-Point.        (line    6)
 * keep_interrupts_masked attribute:      Function Attributes.
-                                                             (line  661)
+                                                             (line  707)
 * keywords, alternate:                   Alternate Keywords. (line    6)
 * known causes of trouble:               Trouble.            (line    6)
 * l1_data variable attribute:            Variable Attributes.
@@ -50098,9 +50118,9 @@ Keyword Index
 * l1_data_B variable attribute:          Variable Attributes.
                                                              (line  356)
 * l1_text function attribute:            Function Attributes.
-                                                             (line  753)
-* l2 function attribute:                 Function Attributes.
                                                              (line  759)
+* l2 function attribute:                 Function Attributes.
+                                                             (line  765)
 * l2 variable attribute:                 Variable Attributes.
                                                              (line  364)
 * labeled elements in initializers:      Designated Inits.   (line    6)
@@ -50119,7 +50139,7 @@ Keyword Index
 * ldexpf:                                Other Builtins.     (line    6)
 * ldexpl:                                Other Builtins.     (line    6)
 * leaf function attribute:               Function Attributes.
-                                                             (line  765)
+                                                             (line  771)
 * length-zero arrays:                    Zero Length.        (line    6)
 * lgamma:                                Other Builtins.     (line    6)
 * lgamma_r:                              Other Builtins.     (line    6)
@@ -50200,7 +50220,7 @@ Keyword Index
                                                              (line  173)
 * malloc:                                Other Builtins.     (line    6)
 * malloc attribute:                      Function Attributes.
-                                                             (line  824)
+                                                             (line  830)
 * matching constraint:                   Simple Constraints. (line  139)
 * MCore options:                         MCore Options.      (line    6)
 * member fns, automatically inline:      Inline.             (line   71)
@@ -50221,7 +50241,7 @@ Keyword Index
 * middle-operands, omitted:              Conditionals.       (line    6)
 * MIPS options:                          MIPS Options.       (line    6)
 * mips16 attribute:                      Function Attributes.
-                                                             (line  833)
+                                                             (line  839)
 * misunderstandings in C++:              C++ Misunderstandings.
                                                              (line    6)
 * mixed declarations and code:           Mixed Declarations. (line    6)
@@ -50235,9 +50255,9 @@ Keyword Index
 * modfl:                                 Other Builtins.     (line    6)
 * modifiers in constraints:              Modifiers.          (line    6)
 * ms_abi attribute:                      Function Attributes.
-                                                             (line  875)
+                                                             (line  881)
 * ms_hook_prologue attribute:            Function Attributes.
-                                                             (line  898)
+                                                             (line  904)
 * ms_struct:                             Type Attributes.    (line  319)
 * ms_struct attribute:                   Variable Attributes.
                                                              (line  445)
@@ -50263,27 +50283,27 @@ Keyword Index
 * NFC:                                   Warning Options.    (line 1247)
 * NFKC:                                  Warning Options.    (line 1247)
 * NMI handler functions on the Blackfin processor: Function Attributes.
-                                                             (line  932)
-* no_instrument_function function attribute: Function Attributes.
                                                              (line  938)
+* no_instrument_function function attribute: Function Attributes.
+                                                             (line  944)
 * no_split_stack function attribute:     Function Attributes.
-                                                             (line  943)
+                                                             (line  949)
 * noclone function attribute:            Function Attributes.
-                                                             (line  959)
+                                                             (line  965)
 * nocommon attribute:                    Variable Attributes.
                                                              (line  105)
 * noinline function attribute:           Function Attributes.
-                                                             (line  949)
+                                                             (line  955)
 * nomips16 attribute:                    Function Attributes.
-                                                             (line  833)
+                                                             (line  839)
 * non-constant initializers:             Initializers.       (line    6)
 * non-static inline function:            Inline.             (line   85)
 * nonnull function attribute:            Function Attributes.
-                                                             (line  965)
+                                                             (line  971)
 * noreturn function attribute:           Function Attributes.
-                                                             (line  988)
+                                                             (line  994)
 * nothrow function attribute:            Function Attributes.
-                                                             (line 1030)
+                                                             (line 1036)
 * o in constraint:                       Simple Constraints. (line   23)
 * OBJC_INCLUDE_PATH:                     Environment Variables.
                                                              (line  134)
@@ -50301,7 +50321,7 @@ Keyword Index
 * OpenMP parallel:                       C Dialect Options.  (line  241)
 * operand constraints, asm:              Constraints.        (line    6)
 * optimize function attribute:           Function Attributes.
-                                                             (line 1038)
+                                                             (line 1044)
 * optimize options:                      Optimize Options.   (line    6)
 * options to control diagnostics formatting: Language Independent Options.
                                                              (line    6)
@@ -50324,9 +50344,9 @@ Keyword Index
 * order of evaluation, side effects:     Non-bugs.           (line  196)
 * order of options:                      Invoking GCC.       (line   30)
 * OS_main AVR function attribute:        Function Attributes.
-                                                             (line 1055)
+                                                             (line 1061)
 * OS_task AVR function attribute:        Function Attributes.
-                                                             (line 1055)
+                                                             (line 1061)
 * other register constraints:            Simple Constraints. (line  163)
 * output file option:                    Overall Options.    (line  191)
 * overloaded virtual function, warning:  C++ Dialect Options.
@@ -50337,7 +50357,7 @@ Keyword Index
 * parameter forward declaration:         Variable Length.    (line   59)
 * Pascal:                                G++ and GCC.        (line   23)
 * pcs function attribute:                Function Attributes.
-                                                             (line 1080)
+                                                             (line 1086)
 * PDP-11 Options:                        PDP-11 Options.     (line    6)
 * PIC:                                   Code Gen Options.   (line  185)
 * picoChip options:                      picoChip Options.   (line    6)
@@ -50391,7 +50411,7 @@ Keyword Index
 * pragma, push_macro:                    Push/Pop Macro Pragmas.
                                                              (line   11)
 * pragma, reason for not using:          Function Attributes.
-                                                             (line 1806)
+                                                             (line 1823)
 * pragma, redefine_extname:              Symbol-Renaming Pragmas.
                                                              (line   14)
 * pragma, segment:                       Darwin Pragmas.     (line   21)
@@ -50416,7 +50436,7 @@ Keyword Index
 * promotion of formal parameters:        Function Prototypes.
                                                              (line    6)
 * pure function attribute:               Function Attributes.
-                                                             (line 1098)
+                                                             (line 1104)
 * push address instruction:              Simple Constraints. (line  154)
 * putchar:                               Other Builtins.     (line    6)
 * puts:                                  Other Builtins.     (line    6)
@@ -50436,7 +50456,7 @@ Keyword Index
 * registers, global allocation:          Explicit Reg Vars.  (line    6)
 * registers, global variables in:        Global Reg Vars.    (line    6)
 * regparm attribute:                     Function Attributes.
-                                                             (line 1151)
+                                                             (line 1157)
 * relocation truncated to fit (ColdFire): M680x0 Options.    (line  328)
 * relocation truncated to fit (MIPS):    MIPS Options.       (line  200)
 * remainder:                             Other Builtins.     (line    6)
@@ -50449,7 +50469,7 @@ Keyword Index
                                                              (line  494)
 * reporting bugs:                        Bugs.               (line    6)
 * resbank attribute:                     Function Attributes.
-                                                             (line 1183)
+                                                             (line 1189)
 * rest argument (in macro):              Variadic Macros.    (line    6)
 * restricted pointers:                   Restricted Pointers.
                                                              (line    6)
@@ -50458,7 +50478,7 @@ Keyword Index
 * restricted this pointer:               Restricted Pointers.
                                                              (line    6)
 * returns_twice attribute:               Function Attributes.
-                                                             (line 1197)
+                                                             (line 1203)
 * rindex:                                Other Builtins.     (line    6)
 * rint:                                  Other Builtins.     (line    6)
 * rintf:                                 Other Builtins.     (line    6)
@@ -50476,9 +50496,9 @@ Keyword Index
 * S/390 and zSeries Options:             S/390 and zSeries Options.
                                                              (line    6)
 * save all registers on the Blackfin, H8/300, H8/300H, and H8S: Function Attributes.
-                                                             (line 1206)
+                                                             (line 1212)
 * save volatile registers on the MicroBlaze: Function Attributes.
-                                                             (line 1211)
+                                                             (line 1217)
 * scalb:                                 Other Builtins.     (line    6)
 * scalbf:                                Other Builtins.     (line    6)
 * scalbl:                                Other Builtins.     (line    6)
@@ -50494,11 +50514,11 @@ Keyword Index
 * Score Options:                         Score Options.      (line    6)
 * search path:                           Directory Options.  (line    6)
 * section function attribute:            Function Attributes.
-                                                             (line 1219)
+                                                             (line 1225)
 * section variable attribute:            Variable Attributes.
                                                              (line  166)
 * sentinel function attribute:           Function Attributes.
-                                                             (line 1235)
+                                                             (line 1241)
 * setjmp:                                Global Reg Vars.    (line   66)
 * setjmp incompatibilities:              Incompatibilities.  (line   39)
 * shared strings:                        Incompatibilities.  (line    9)
@@ -50507,8 +50527,6 @@ Keyword Index
 * side effect in ?::                     Conditionals.       (line   20)
 * side effects, macro argument:          Statement Exprs.    (line   35)
 * side effects, order of evaluation:     Non-bugs.           (line  196)
-* signal handler functions on the AVR processors: Function Attributes.
-                                                             (line 1266)
 * signbit:                               Other Builtins.     (line    6)
 * signbitd128:                           Other Builtins.     (line    6)
 * signbitd32:                            Other Builtins.     (line    6)
@@ -50554,7 +50572,7 @@ Keyword Index
 * sscanf:                                Other Builtins.     (line    6)
 * sscanf, and constant strings:          Incompatibilities.  (line   17)
 * sseregparm attribute:                  Function Attributes.
-                                                             (line 1168)
+                                                             (line 1174)
 * statements inside expressions:         Statement Exprs.    (line    6)
 * static data in C++, declaring and defining: Static Definitions.
                                                              (line    6)
@@ -50594,10 +50612,10 @@ Keyword Index
                                                              (line    6)
 * syntax checking:                       Warning Options.    (line   13)
 * syscall_linkage attribute:             Function Attributes.
-                                                             (line 1288)
+                                                             (line 1305)
 * system headers, warnings from:         Warning Options.    (line  810)
 * sysv_abi attribute:                    Function Attributes.
-                                                             (line  875)
+                                                             (line  881)
 * tan:                                   Other Builtins.     (line    6)
 * tanf:                                  Other Builtins.     (line    6)
 * tanh:                                  Other Builtins.     (line    6)
@@ -50605,109 +50623,109 @@ Keyword Index
 * tanhl:                                 Other Builtins.     (line    6)
 * tanl:                                  Other Builtins.     (line    6)
 * target function attribute:             Function Attributes.
-                                                             (line 1295)
+                                                             (line 1312)
 * target machine, specifying:            Target Options.     (line    6)
 * target options:                        Target Options.     (line    6)
 * target("abm") attribute:               Function Attributes.
-                                                             (line 1322)
-* target("aes") attribute:               Function Attributes.
-                                                             (line 1327)
-* target("align-stringops") attribute:   Function Attributes.
-                                                             (line 1417)
-* target("altivec") attribute:           Function Attributes.
-                                                             (line 1443)
-* target("arch=ARCH") attribute:         Function Attributes.
-                                                             (line 1426)
-* target("avoid-indexed-addresses") attribute: Function Attributes.
-                                                             (line 1563)
-* target("cld") attribute:               Function Attributes.
-                                                             (line 1388)
-* target("cmpb") attribute:              Function Attributes.
-                                                             (line 1449)
-* target("cpu=CPU") attribute:           Function Attributes.
-                                                             (line 1578)
-* target("dlmzb") attribute:             Function Attributes.
-                                                             (line 1455)
-* target("fancy-math-387") attribute:    Function Attributes.
-                                                             (line 1392)
-* target("fma4") attribute:              Function Attributes.
-                                                             (line 1372)
-* target("fpmath=FPMATH") attribute:     Function Attributes.
-                                                             (line 1434)
-* target("fprnd") attribute:             Function Attributes.
-                                                             (line 1462)
-* target("friz") attribute:              Function Attributes.
-                                                             (line 1554)
-* target("fused-madd") attribute:        Function Attributes.
-                                                             (line 1397)
-* target("hard-dfp") attribute:          Function Attributes.
-                                                             (line 1468)
-* target("ieee-fp") attribute:           Function Attributes.
-                                                             (line 1402)
-* target("inline-all-stringops") attribute: Function Attributes.
-                                                             (line 1407)
-* target("inline-stringops-dynamically") attribute: Function Attributes.
-                                                             (line 1411)
-* target("isel") attribute:              Function Attributes.
-                                                             (line 1473)
-* target("longcall") attribute:          Function Attributes.
-                                                             (line 1573)
-* target("lwp") attribute:               Function Attributes.
-                                                             (line 1380)
-* target("mfcrf") attribute:             Function Attributes.
-                                                             (line 1477)
-* target("mfpgpr") attribute:            Function Attributes.
-                                                             (line 1484)
-* target("mmx") attribute:               Function Attributes.
-                                                             (line 1331)
-* target("mulhw") attribute:             Function Attributes.
-                                                             (line 1491)
-* target("multiple") attribute:          Function Attributes.
-                                                             (line 1498)
-* target("paired") attribute:            Function Attributes.
-                                                             (line 1568)
-* target("pclmul") attribute:            Function Attributes.
-                                                             (line 1335)
-* target("popcnt") attribute:            Function Attributes.
                                                              (line 1339)
+* target("aes") attribute:               Function Attributes.
+                                                             (line 1344)
+* target("align-stringops") attribute:   Function Attributes.
+                                                             (line 1434)
+* target("altivec") attribute:           Function Attributes.
+                                                             (line 1460)
+* target("arch=ARCH") attribute:         Function Attributes.
+                                                             (line 1443)
+* target("avoid-indexed-addresses") attribute: Function Attributes.
+                                                             (line 1580)
+* target("cld") attribute:               Function Attributes.
+                                                             (line 1405)
+* target("cmpb") attribute:              Function Attributes.
+                                                             (line 1466)
+* target("cpu=CPU") attribute:           Function Attributes.
+                                                             (line 1595)
+* target("dlmzb") attribute:             Function Attributes.
+                                                             (line 1472)
+* target("fancy-math-387") attribute:    Function Attributes.
+                                                             (line 1409)
+* target("fma4") attribute:              Function Attributes.
+                                                             (line 1389)
+* target("fpmath=FPMATH") attribute:     Function Attributes.
+                                                             (line 1451)
+* target("fprnd") attribute:             Function Attributes.
+                                                             (line 1479)
+* target("friz") attribute:              Function Attributes.
+                                                             (line 1571)
+* target("fused-madd") attribute:        Function Attributes.
+                                                             (line 1414)
+* target("hard-dfp") attribute:          Function Attributes.
+                                                             (line 1485)
+* target("ieee-fp") attribute:           Function Attributes.
+                                                             (line 1419)
+* target("inline-all-stringops") attribute: Function Attributes.
+                                                             (line 1424)
+* target("inline-stringops-dynamically") attribute: Function Attributes.
+                                                             (line 1428)
+* target("isel") attribute:              Function Attributes.
+                                                             (line 1490)
+* target("longcall") attribute:          Function Attributes.
+                                                             (line 1590)
+* target("lwp") attribute:               Function Attributes.
+                                                             (line 1397)
+* target("mfcrf") attribute:             Function Attributes.
+                                                             (line 1494)
+* target("mfpgpr") attribute:            Function Attributes.
+                                                             (line 1501)
+* target("mmx") attribute:               Function Attributes.
+                                                             (line 1348)
+* target("mulhw") attribute:             Function Attributes.
+                                                             (line 1508)
+* target("multiple") attribute:          Function Attributes.
+                                                             (line 1515)
+* target("paired") attribute:            Function Attributes.
+                                                             (line 1585)
+* target("pclmul") attribute:            Function Attributes.
+                                                             (line 1352)
+* target("popcnt") attribute:            Function Attributes.
+                                                             (line 1356)
 * target("popcntb") attribute:           Function Attributes.
-                                                             (line 1509)
+                                                             (line 1526)
 * target("popcntd") attribute:           Function Attributes.
-                                                             (line 1516)
+                                                             (line 1533)
 * target("powerpc-gfxopt") attribute:    Function Attributes.
-                                                             (line 1522)
+                                                             (line 1539)
 * target("powerpc-gpopt") attribute:     Function Attributes.
-                                                             (line 1528)
+                                                             (line 1545)
 * target("recip") attribute:             Function Attributes.
-                                                             (line 1421)
+                                                             (line 1438)
 * target("recip-precision") attribute:   Function Attributes.
-                                                             (line 1534)
+                                                             (line 1551)
 * target("sse") attribute:               Function Attributes.
-                                                             (line 1343)
-* target("sse2") attribute:              Function Attributes.
-                                                             (line 1347)
-* target("sse3") attribute:              Function Attributes.
-                                                             (line 1351)
-* target("sse4") attribute:              Function Attributes.
-                                                             (line 1355)
-* target("sse4.1") attribute:            Function Attributes.
                                                              (line 1360)
-* target("sse4.2") attribute:            Function Attributes.
+* target("sse2") attribute:              Function Attributes.
                                                              (line 1364)
-* target("sse4a") attribute:             Function Attributes.
+* target("sse3") attribute:              Function Attributes.
                                                              (line 1368)
+* target("sse4") attribute:              Function Attributes.
+                                                             (line 1372)
+* target("sse4.1") attribute:            Function Attributes.
+                                                             (line 1377)
+* target("sse4.2") attribute:            Function Attributes.
+                                                             (line 1381)
+* target("sse4a") attribute:             Function Attributes.
+                                                             (line 1385)
 * target("ssse3") attribute:             Function Attributes.
-                                                             (line 1384)
+                                                             (line 1401)
 * target("string") attribute:            Function Attributes.
-                                                             (line 1540)
+                                                             (line 1557)
 * target("tune=TUNE") attribute:         Function Attributes.
-                                                             (line 1430)
+                                                             (line 1447)
 * target("update") attribute:            Function Attributes.
-                                                             (line 1503)
+                                                             (line 1520)
 * target("vsx") attribute:               Function Attributes.
-                                                             (line 1546)
+                                                             (line 1563)
 * target("xop") attribute:               Function Attributes.
-                                                             (line 1376)
+                                                             (line 1393)
 * TC1:                                   Standards.          (line   13)
 * TC2:                                   Standards.          (line   13)
 * TC3:                                   Standards.          (line   13)
@@ -50726,7 +50744,7 @@ Keyword Index
 * TILE-Gx options:                       TILE-Gx Options.    (line    6)
 * TILEPro options:                       TILEPro Options.    (line    6)
 * tiny data section on the H8/300H and H8S: Function Attributes.
-                                                             (line 1607)
+                                                             (line 1624)
 * TLS:                                   Thread-Local.       (line    6)
 * tls_model attribute:                   Variable Attributes.
                                                              (line  235)
@@ -50772,23 +50790,23 @@ Keyword Index
 * unresolved references and -nodefaultlibs: Link Options.    (line   82)
 * unresolved references and -nostdlib:   Link Options.       (line   82)
 * unused attribute.:                     Function Attributes.
-                                                             (line 1619)
+                                                             (line 1636)
 * UR fixed-suffix:                       Fixed-Point.        (line    6)
 * ur fixed-suffix:                       Fixed-Point.        (line    6)
 * use_debug_exception_return attribute:  Function Attributes.
-                                                             (line  666)
+                                                             (line  712)
 * use_shadow_register_set attribute:     Function Attributes.
-                                                             (line  657)
+                                                             (line  703)
 * used attribute.:                       Function Attributes.
-                                                             (line 1624)
+                                                             (line 1641)
 * User stack pointer in interrupts on the Blackfin: Function Attributes.
-                                                             (line  748)
+                                                             (line  754)
 * V in constraint:                       Simple Constraints. (line   43)
 * V850 Options:                          V850 Options.       (line    6)
 * vague linkage:                         Vague Linkage.      (line    6)
 * value after longjmp:                   Global Reg Vars.    (line   66)
 * variable addressability on the IA-64:  Function Attributes.
-                                                             (line  847)
+                                                             (line  853)
 * variable addressability on the M32R/D: Variable Attributes.
                                                              (line  374)
 * variable alignment:                    Alignment.          (line    6)
@@ -50802,14 +50820,14 @@ Keyword Index
 * variadic macros:                       Variadic Macros.    (line    6)
 * VAX options:                           VAX Options.        (line    6)
 * version_id attribute:                  Function Attributes.
-                                                             (line 1634)
+                                                             (line 1651)
 * vfprintf:                              Other Builtins.     (line    6)
 * vfscanf:                               Other Builtins.     (line    6)
 * visibility attribute:                  Function Attributes.
-                                                             (line 1644)
+                                                             (line 1661)
 * VLAs:                                  Variable Length.    (line    6)
 * vliw attribute:                        Function Attributes.
-                                                             (line 1738)
+                                                             (line 1755)
 * void pointers, arithmetic:             Pointer Arith.      (line    6)
 * void, size of pointer to:              Pointer Arith.      (line    6)
 * volatile access <1>:                   C++ Volatiles.      (line    6)
@@ -50830,7 +50848,7 @@ Keyword Index
 * W floating point suffix:               Floating Types.     (line    6)
 * w floating point suffix:               Floating Types.     (line    6)
 * warn_unused_result attribute:          Function Attributes.
-                                                             (line 1744)
+                                                             (line 1761)
 * warning for comparison of signed and unsigned values: Warning Options.
                                                              (line 1119)
 * warning for overloaded virtual function: C++ Dialect Options.
@@ -50845,9 +50863,9 @@ Keyword Index
 * warnings vs errors:                    Warnings and Errors.
                                                              (line    6)
 * weak attribute:                        Function Attributes.
-                                                             (line 1761)
+                                                             (line 1778)
 * weakref attribute:                     Function Attributes.
-                                                             (line 1770)
+                                                             (line 1787)
 * whitespace:                            Incompatibilities.  (line  112)
 * X in constraint:                       Simple Constraints. (line  124)
 * X3.159-1989:                           Standards.          (line   13)
@@ -50992,180 +51010,180 @@ Node: Hex Floats851212
 Node: Fixed-Point852253
 Node: Named Address Spaces855547
 Ref: AVR Named Address Spaces856241
-Node: Zero Length861567
-Node: Empty Structures864854
-Node: Variable Length865270
-Node: Variadic Macros867923
-Node: Escaped Newlines870305
-Node: Subscripting871144
-Node: Pointer Arith871867
-Node: Initializers872435
-Node: Compound Literals872931
-Node: Designated Inits875103
-Node: Case Ranges878758
-Node: Cast to Union879441
-Node: Mixed Declarations880537
-Node: Function Attributes881043
-Node: Attribute Syntax964316
-Node: Function Prototypes974762
-Node: C++ Comments976543
-Node: Dollar Signs977062
-Node: Character Escapes977527
-Node: Variable Attributes977821
-Ref: AVR Variable Attributes991520
-Ref: MeP Variable Attributes994200
-Ref: i386 Variable Attributes996161
-Node: Type Attributes1001854
-Ref: MeP Type Attributes1015595
-Ref: i386 Type Attributes1015869
-Ref: PowerPC Type Attributes1016709
-Ref: SPU Type Attributes1017571
-Node: Alignment1017862
-Node: Inline1019236
-Node: Volatiles1024220
-Node: Extended Asm1027115
-Ref: Example of asm with clobbered asm reg1033204
-Ref: Extended asm with goto1042971
-Node: Constraints1050706
-Node: Simple Constraints1051790
-Node: Multi-Alternative1059111
-Node: Modifiers1060828
-Node: Machine Constraints1063722
-Node: Asm Labels1111112
-Node: Explicit Reg Vars1112788
-Node: Global Reg Vars1114396
-Node: Local Reg Vars1118946
-Node: Alternate Keywords1121387
-Node: Incomplete Enums1122873
-Node: Function Names1123630
-Node: Return Address1125792
-Node: Vector Extensions1129345
-Node: Offsetof1135524
-Node: __sync Builtins1136338
-Node: __atomic Builtins1141743
-Node: Object Size Checking1152953
-Node: Other Builtins1158383
-Node: Target Builtins1186840
-Node: Alpha Built-in Functions1187883
-Node: ARM iWMMXt Built-in Functions1190882
-Node: ARM NEON Intrinsics1197601
-Node: AVR Built-in Functions1403796
-Node: Blackfin Built-in Functions1406867
-Node: FR-V Built-in Functions1407484
-Node: Argument Types1408343
-Node: Directly-mapped Integer Functions1410099
-Node: Directly-mapped Media Functions1411181
-Node: Raw read/write Functions1418213
-Node: Other Built-in Functions1419125
-Node: X86 Built-in Functions1420314
-Node: MIPS DSP Built-in Functions1475133
-Node: MIPS Paired-Single Support1487636
-Node: MIPS Loongson Built-in Functions1489137
-Node: Paired-Single Arithmetic1495657
-Node: Paired-Single Built-in Functions1496605
-Node: MIPS-3D Built-in Functions1499277
-Node: picoChip Built-in Functions1504654
-Node: Other MIPS Built-in Functions1506020
-Node: PowerPC AltiVec/VSX Built-in Functions1506544
-Node: RX Built-in Functions1617202
-Node: SPARC VIS Built-in Functions1621212
-Node: SPU Built-in Functions1626816
-Node: TI C6X Built-in Functions1628632
-Node: TILE-Gx Built-in Functions1629656
-Node: TILEPro Built-in Functions1630776
-Node: Target Format Checks1631847
-Node: Solaris Format Checks1632279
-Node: Darwin Format Checks1632705
-Node: Pragmas1633532
-Node: ARM Pragmas1634242
-Node: M32C Pragmas1634845
-Node: MeP Pragmas1635919
-Node: RS/6000 and PowerPC Pragmas1637988
-Node: Darwin Pragmas1638729
-Node: Solaris Pragmas1639796
-Node: Symbol-Renaming Pragmas1640957
-Node: Structure-Packing Pragmas1643591
-Node: Weak Pragmas1645241
-Node: Diagnostic Pragmas1645975
-Node: Visibility Pragmas1649003
-Node: Push/Pop Macro Pragmas1649755
-Node: Function Specific Option Pragmas1650728
-Node: Unnamed Fields1652992
-Node: Thread-Local1655230
-Node: C99 Thread-Local Edits1657337
-Node: C++98 Thread-Local Edits1659349
-Node: Binary constants1662794
-Node: C++ Extensions1663465
-Node: C++ Volatiles1665113
-Node: Restricted Pointers1667473
-Node: Vague Linkage1669071
-Node: C++ Interface1672733
-Ref: C++ Interface-Footnote-11677030
-Node: Template Instantiation1677167
-Node: Bound member functions1684179
-Node: C++ Attributes1685722
-Node: Namespace Association1687380
-Node: Type Traits1688794
-Node: Java Exceptions1695279
-Node: Deprecated Features1696676
-Node: Backwards Compatibility1699641
-Node: Objective-C1700999
-Node: GNU Objective-C runtime API1701608
-Node: Modern GNU Objective-C runtime API1702615
-Node: Traditional GNU Objective-C runtime API1705052
-Node: Executing code before main1705780
-Node: What you can and what you cannot do in +load1708518
-Node: Type encoding1710908
-Node: Legacy type encoding1715984
-Node: @encode1717075
-Node: Method signatures1717616
-Node: Garbage Collection1719611
-Node: Constant string objects1722300
-Node: compatibility_alias1724808
-Node: Exceptions1725530
-Node: Synchronization1728241
-Node: Fast enumeration1729425
-Node: Using fast enumeration1729737
-Node: c99-like fast enumeration syntax1730948
-Node: Fast enumeration details1731651
-Node: Fast enumeration protocol1733992
-Node: Messaging with the GNU Objective-C runtime1737144
-Node: Dynamically registering methods1738515
-Node: Forwarding hook1740206
-Node: Compatibility1743245
-Node: Gcov1749812
-Node: Gcov Intro1750345
-Node: Invoking Gcov1753063
-Node: Gcov and Optimization1765974
-Node: Gcov Data Files1768629
-Node: Cross-profiling1769769
-Node: Trouble1771620
-Node: Actual Bugs1773105
-Node: Cross-Compiler Problems1773561
-Node: Interoperation1773981
-Node: Incompatibilities1781118
-Node: Fixed Headers1789269
-Node: Standard Libraries1790932
-Node: Disappointments1792304
-Node: C++ Misunderstandings1796662
-Node: Static Definitions1797473
-Node: Name lookup1798526
-Ref: Name lookup-Footnote-11803304
-Node: Temporaries1803491
-Node: Copy Assignment1805467
-Node: Non-bugs1807274
-Node: Warnings and Errors1817781
-Node: Bugs1819545
-Node: Bug Criteria1820109
-Node: Bug Reporting1822319
-Node: Service1822540
-Node: Contributing1823359
-Node: Funding1824099
-Node: GNU Project1826588
-Node: Copying1827234
-Node: GNU Free Documentation License1864762
-Node: Contributors1889899
-Node: Option Index1927301
-Node: Keyword Index2110873
+Node: Zero Length861609
+Node: Empty Structures864896
+Node: Variable Length865312
+Node: Variadic Macros867965
+Node: Escaped Newlines870347
+Node: Subscripting871186
+Node: Pointer Arith871909
+Node: Initializers872477
+Node: Compound Literals872973
+Node: Designated Inits875145
+Node: Case Ranges878800
+Node: Cast to Union879483
+Node: Mixed Declarations880579
+Node: Function Attributes881085
+Node: Attribute Syntax965262
+Node: Function Prototypes975708
+Node: C++ Comments977489
+Node: Dollar Signs978008
+Node: Character Escapes978473
+Node: Variable Attributes978767
+Ref: AVR Variable Attributes992466
+Ref: MeP Variable Attributes995146
+Ref: i386 Variable Attributes997107
+Node: Type Attributes1002800
+Ref: MeP Type Attributes1016541
+Ref: i386 Type Attributes1016815
+Ref: PowerPC Type Attributes1017655
+Ref: SPU Type Attributes1018517
+Node: Alignment1018808
+Node: Inline1020182
+Node: Volatiles1025166
+Node: Extended Asm1028061
+Ref: Example of asm with clobbered asm reg1034150
+Ref: Extended asm with goto1043917
+Node: Constraints1051652
+Node: Simple Constraints1052736
+Node: Multi-Alternative1060057
+Node: Modifiers1061774
+Node: Machine Constraints1064668
+Node: Asm Labels1112058
+Node: Explicit Reg Vars1113734
+Node: Global Reg Vars1115342
+Node: Local Reg Vars1119892
+Node: Alternate Keywords1122333
+Node: Incomplete Enums1123819
+Node: Function Names1124576
+Node: Return Address1126738
+Node: Vector Extensions1130291
+Node: Offsetof1136470
+Node: __sync Builtins1137284
+Node: __atomic Builtins1142689
+Node: Object Size Checking1153899
+Node: Other Builtins1159329
+Node: Target Builtins1187786
+Node: Alpha Built-in Functions1188829
+Node: ARM iWMMXt Built-in Functions1191828
+Node: ARM NEON Intrinsics1198547
+Node: AVR Built-in Functions1404742
+Node: Blackfin Built-in Functions1407813
+Node: FR-V Built-in Functions1408430
+Node: Argument Types1409289
+Node: Directly-mapped Integer Functions1411045
+Node: Directly-mapped Media Functions1412127
+Node: Raw read/write Functions1419159
+Node: Other Built-in Functions1420071
+Node: X86 Built-in Functions1421260
+Node: MIPS DSP Built-in Functions1476079
+Node: MIPS Paired-Single Support1488582
+Node: MIPS Loongson Built-in Functions1490083
+Node: Paired-Single Arithmetic1496603
+Node: Paired-Single Built-in Functions1497551
+Node: MIPS-3D Built-in Functions1500223
+Node: picoChip Built-in Functions1505600
+Node: Other MIPS Built-in Functions1506966
+Node: PowerPC AltiVec/VSX Built-in Functions1507490
+Node: RX Built-in Functions1618148
+Node: SPARC VIS Built-in Functions1622158
+Node: SPU Built-in Functions1627762
+Node: TI C6X Built-in Functions1629578
+Node: TILE-Gx Built-in Functions1630602
+Node: TILEPro Built-in Functions1631722
+Node: Target Format Checks1632793
+Node: Solaris Format Checks1633225
+Node: Darwin Format Checks1633651
+Node: Pragmas1634478
+Node: ARM Pragmas1635188
+Node: M32C Pragmas1635791
+Node: MeP Pragmas1636865
+Node: RS/6000 and PowerPC Pragmas1638934
+Node: Darwin Pragmas1639675
+Node: Solaris Pragmas1640742
+Node: Symbol-Renaming Pragmas1641903
+Node: Structure-Packing Pragmas1644537
+Node: Weak Pragmas1646187
+Node: Diagnostic Pragmas1646921
+Node: Visibility Pragmas1649949
+Node: Push/Pop Macro Pragmas1650701
+Node: Function Specific Option Pragmas1651674
+Node: Unnamed Fields1653938
+Node: Thread-Local1656176
+Node: C99 Thread-Local Edits1658283
+Node: C++98 Thread-Local Edits1660295
+Node: Binary constants1663740
+Node: C++ Extensions1664411
+Node: C++ Volatiles1666059
+Node: Restricted Pointers1668419
+Node: Vague Linkage1670017
+Node: C++ Interface1673679
+Ref: C++ Interface-Footnote-11677976
+Node: Template Instantiation1678113
+Node: Bound member functions1685125
+Node: C++ Attributes1686668
+Node: Namespace Association1688326
+Node: Type Traits1689740
+Node: Java Exceptions1696225
+Node: Deprecated Features1697622
+Node: Backwards Compatibility1700587
+Node: Objective-C1701945
+Node: GNU Objective-C runtime API1702554
+Node: Modern GNU Objective-C runtime API1703561
+Node: Traditional GNU Objective-C runtime API1705998
+Node: Executing code before main1706726
+Node: What you can and what you cannot do in +load1709464
+Node: Type encoding1711854
+Node: Legacy type encoding1716930
+Node: @encode1718021
+Node: Method signatures1718562
+Node: Garbage Collection1720557
+Node: Constant string objects1723246
+Node: compatibility_alias1725754
+Node: Exceptions1726476
+Node: Synchronization1729187
+Node: Fast enumeration1730371
+Node: Using fast enumeration1730683
+Node: c99-like fast enumeration syntax1731894
+Node: Fast enumeration details1732597
+Node: Fast enumeration protocol1734938
+Node: Messaging with the GNU Objective-C runtime1738090
+Node: Dynamically registering methods1739461
+Node: Forwarding hook1741152
+Node: Compatibility1744191
+Node: Gcov1750758
+Node: Gcov Intro1751291
+Node: Invoking Gcov1754009
+Node: Gcov and Optimization1766920
+Node: Gcov Data Files1769575
+Node: Cross-profiling1770715
+Node: Trouble1772566
+Node: Actual Bugs1774051
+Node: Cross-Compiler Problems1774507
+Node: Interoperation1774927
+Node: Incompatibilities1782064
+Node: Fixed Headers1790215
+Node: Standard Libraries1791878
+Node: Disappointments1793250
+Node: C++ Misunderstandings1797608
+Node: Static Definitions1798419
+Node: Name lookup1799472
+Ref: Name lookup-Footnote-11804250
+Node: Temporaries1804437
+Node: Copy Assignment1806413
+Node: Non-bugs1808220
+Node: Warnings and Errors1818727
+Node: Bugs1820491
+Node: Bug Criteria1821055
+Node: Bug Reporting1823265
+Node: Service1823486
+Node: Contributing1824305
+Node: Funding1825045
+Node: GNU Project1827534
+Node: Copying1828180
+Node: GNU Free Documentation License1865708
+Node: Contributors1890845
+Node: Option Index1928247
+Node: Keyword Index2111819
 
 End Tag Table

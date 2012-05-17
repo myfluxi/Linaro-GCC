@@ -53,7 +53,7 @@ if [ x$1 != x ] ; then
   prefix=$1
   shift
 else
-  prefix=/home/fluxi/android/xxChain/linaroXX-4.7-2012.04-neon-DEV
+  prefix=/home/fluxi/android/xxChain/linaroXX-4.7-2012.05-neon
 fi
 
 # Allow for alternate isysroot in which to find headers
