@@ -19,8 +19,8 @@ import gdb
 import os
 import os.path
 
-pythondir = '/home/fluxi/android/xxChain/linaroXX-4.7-2012.05-neon/share/gcc-4.7.1/python'
-libdir = '/home/fluxi/android/xxChain/linaroXX-4.7-2012.05-neon/arm-eabi/lib'
+pythondir = '/home/fluxi/android/xxChain/linaroXX-4.7-2012.06-neon/share/gcc-4.7.1/python'
+libdir = '/home/fluxi/android/xxChain/linaroXX-4.7-2012.06-neon/arm-eabi/lib'
 
 # This file might be loaded when there is no current objfile.  This
 # can happen if the user loads it manually.  In this case we don't

@@ -4,9 +4,9 @@
 ;;; Don't parse this file wihout knowing GCC gengtype internals.
 ;;; This file should be parsed by the same gengtype which wrote it.
 
-(!version  "4.7.1 20120514 (prerelease)")
+(!version  "4.7.1 20120531 (prerelease)")
 
-(!srcdir  "/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc")
+(!srcdir  "/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc")
 
 (!languages 9 ada cp fortran go java lto objc objcp c)
 
@@ -8094,7 +8094,7 @@ nil )
 (!srcfileloc  "gimple.h" 412)
 nil )
 (!pair  "u"
-(!type union 348 nil  gc_used "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/gimple.h:415"
+(!type union 348 nil  gc_used "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/gimple.h:415"
 (!srcfileloc  "gimple.h" 418)
 
 (!fields 2 
@@ -8365,7 +8365,7 @@ nil )
 )
 )
 (!pair  "loc"
-(!type union 361 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/tree.h:2011"
+(!type union 361 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/tree.h:2011"
 (!srcfileloc  "tree.h" 2011)
 
 (!fields 2 
@@ -15669,7 +15669,7 @@ nil )
 
 (!fields 11 
 (!pair  "u"
-(!type union 613 nil  gc_used "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/c-decl.c:187"
+(!type union 613 nil  gc_used "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/c-decl.c:187"
 (!srcfileloc  "c-decl.c" 190)
 
 (!fields 2 
@@ -17174,7 +17174,7 @@ nil 320 nil )
 
 (!type already_seen 670)
 
-(!type struct 675 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/c-parser.c:5589"nil 
+(!type struct 675 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/c-parser.c:5589"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -17808,7 +17808,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 733 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/java/expr.c:2059"nil 
+(!type struct 733 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/java/expr.c:2059"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -17990,11 +17990,11 @@ nil )
 nil ))
 nil 4 nil )
 
-(!type struct 746 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/fortran/trans.h:334"nil 
+(!type struct 746 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/fortran/trans.h:334"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 747 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/fortran/trans.h:322"nil 
+(!type struct 747 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/fortran/trans.h:322"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -18018,7 +18018,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 753 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/fortran/trans.h:33"nil 
+(!type struct 753 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/fortran/trans.h:33"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -18320,7 +18320,7 @@ nil 0 nil )
 nil )
 (!pair  "vec"
 (!type array 775 nil  gc_unused "1" 
-(!type struct 776 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/c-family/c-pragma.c:1175"nil 
+(!type struct 776 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/c-family/c-pragma.c:1175"nil 
 (!fields 0 )
 nil 0 nil )
 )
@@ -20506,23 +20506,23 @@ nil 1 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 956 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/ada/gcc-interface/decl.c:189"nil 
+(!type struct 956 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/ada/gcc-interface/decl.c:194"nil 
 (!fields 0 )
 nil 0 nil )
 
 (!type struct 957 nil  gc_unused "VEC_variant_desc_heap"
-(!srcfileloc  "ada/gcc-interface/decl.c" 128)
+(!srcfileloc  "ada/gcc-interface/decl.c" 132)
 
 (!fields 1 
 (!pair  "base"
 (!type struct 958 nil  gc_unused "VEC_variant_desc_base"
-(!srcfileloc  "ada/gcc-interface/decl.c" 127)
+(!srcfileloc  "ada/gcc-interface/decl.c" 131)
 
 (!fields 2 
 (!pair  "prefix"
 (!type already_seen 56)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 127)
+(!srcfileloc  "ada/gcc-interface/decl.c" 131)
 nil )
 (!pair  "vec"
 (!type array 959 nil  gc_unused "1" 
@@ -20531,7 +20531,7 @@ nil )
 nil 0 nil )
 )
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 127)
+(!srcfileloc  "ada/gcc-interface/decl.c" 131)
 
 (!options 
 (!option length string  "%h.prefix.num")
@@ -20539,18 +20539,18 @@ nil 0 nil )
 ))
 nil 1 nil )
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 128)
+(!srcfileloc  "ada/gcc-interface/decl.c" 132)
 nil ))
 nil 1 nil )
 
 (!type struct 961 nil  gc_unused "VEC_variant_desc_none"
-(!srcfileloc  "ada/gcc-interface/decl.c" 127)
+(!srcfileloc  "ada/gcc-interface/decl.c" 131)
 
 (!fields 1 
 (!pair  "base"
 (!type already_seen 958)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 127)
+(!srcfileloc  "ada/gcc-interface/decl.c" 131)
 nil ))
 nil 1 nil )
 
@@ -20559,18 +20559,18 @@ nil 1 nil )
 (!type already_seen 960)
 
 (!type struct 962 nil  gc_unused "VEC_subst_pair_heap"
-(!srcfileloc  "ada/gcc-interface/decl.c" 111)
+(!srcfileloc  "ada/gcc-interface/decl.c" 115)
 
 (!fields 1 
 (!pair  "base"
 (!type struct 963 nil  gc_unused "VEC_subst_pair_base"
-(!srcfileloc  "ada/gcc-interface/decl.c" 110)
+(!srcfileloc  "ada/gcc-interface/decl.c" 114)
 
 (!fields 2 
 (!pair  "prefix"
 (!type already_seen 56)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 110)
+(!srcfileloc  "ada/gcc-interface/decl.c" 114)
 nil )
 (!pair  "vec"
 (!type array 964 nil  gc_unused "1" 
@@ -20579,7 +20579,7 @@ nil )
 nil 0 nil )
 )
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 110)
+(!srcfileloc  "ada/gcc-interface/decl.c" 114)
 
 (!options 
 (!option length string  "%h.prefix.num")
@@ -20587,18 +20587,18 @@ nil 0 nil )
 ))
 nil 1 nil )
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 111)
+(!srcfileloc  "ada/gcc-interface/decl.c" 115)
 nil ))
 nil 1 nil )
 
 (!type struct 966 nil  gc_unused "VEC_subst_pair_none"
-(!srcfileloc  "ada/gcc-interface/decl.c" 110)
+(!srcfileloc  "ada/gcc-interface/decl.c" 114)
 
 (!fields 1 
 (!pair  "base"
 (!type already_seen 963)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 110)
+(!srcfileloc  "ada/gcc-interface/decl.c" 114)
 nil ))
 nil 1 nil )
 
@@ -23309,7 +23309,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1198 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/config/arm/arm.c:24531"nil 
+(!type struct 1198 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/config/arm/arm.c:24530"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23317,15 +23317,15 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1200 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/config/arm/arm.c:19181"nil 
+(!type struct 1200 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/config/arm/arm.c:19181"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1201 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/config/arm/arm.c:2044"nil 
+(!type struct 1201 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/config/arm/arm.c:2044"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1202 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/config/arm/arm.c:1072"nil 
+(!type struct 1202 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/config/arm/arm.c:1072"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23609,7 +23609,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type union 1248 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/tree-eh.c:44"nil 
+(!type union 1248 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/tree-eh.c:44"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23625,7 +23625,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1252 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/tree-flow.h:627"nil 
+(!type struct 1252 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/tree-flow.h:627"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23685,7 +23685,7 @@ nil 511 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1260 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/tree-flow.h:315"nil 
+(!type struct 1260 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/tree-flow.h:315"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23697,7 +23697,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1263 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/tree-flow.h:106"nil 
+(!type struct 1263 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/tree-flow.h:106"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23869,7 +23869,7 @@ nil 0 nil )
 
 (!type already_seen 335)
 
-(!type struct 1279 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/gimple.h:263"nil 
+(!type struct 1279 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/gimple.h:263"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23980,11 +23980,11 @@ nil 511 nil )
 
 (!type already_seen 1289)
 
-(!type struct 1291 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/varasm.c:4724"nil 
+(!type struct 1291 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/varasm.c:4724"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1292 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/varasm.c:4473"nil 
+(!type struct 1292 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/varasm.c:4473"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -24117,7 +24117,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type union 1309 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/mcf.c:351"nil 
+(!type union 1309 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/mcf.c:351"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -24618,25 +24618,25 @@ nil 511 nil )
 nil 0 nil )
 
 (!type struct 1371 nil  gc_unused "VEC_dchar_p_heap"
-(!srcfileloc  "dwarf2out.c" 18320)
+(!srcfileloc  "dwarf2out.c" 18326)
 
 (!fields 1 
 (!pair  "base"
 (!type struct 1372 nil  gc_unused "VEC_dchar_p_base"
-(!srcfileloc  "dwarf2out.c" 18319)
+(!srcfileloc  "dwarf2out.c" 18325)
 
 (!fields 2 
 (!pair  "prefix"
 (!type already_seen 56)
 
-(!srcfileloc  "dwarf2out.c" 18319)
+(!srcfileloc  "dwarf2out.c" 18325)
 nil )
 (!pair  "vec"
 (!type array 1373 nil  gc_unused "1" 
 (!type already_seen 2)
 )
 
-(!srcfileloc  "dwarf2out.c" 18319)
+(!srcfileloc  "dwarf2out.c" 18325)
 
 (!options 
 (!option length string  "%h.prefix.num")
@@ -24644,18 +24644,18 @@ nil )
 ))
 nil 511 nil )
 
-(!srcfileloc  "dwarf2out.c" 18320)
+(!srcfileloc  "dwarf2out.c" 18326)
 nil ))
 nil 511 nil )
 
 (!type struct 1374 nil  gc_unused "VEC_dchar_p_none"
-(!srcfileloc  "dwarf2out.c" 18319)
+(!srcfileloc  "dwarf2out.c" 18325)
 
 (!fields 1 
 (!pair  "base"
 (!type already_seen 1372)
 
-(!srcfileloc  "dwarf2out.c" 18319)
+(!srcfileloc  "dwarf2out.c" 18325)
 nil ))
 nil 511 nil )
 
@@ -25448,7 +25448,7 @@ nil 0 nil )
 nil )
 (!pair  "vec"
 (!type array 1449 nil  gc_unused "1" 
-(!type struct 1450 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/dwarf2cfi.c:200"nil 
+(!type struct 1450 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/dwarf2cfi.c:200"nil 
 (!fields 0 )
 nil 0 nil )
 )
@@ -25499,7 +25499,7 @@ nil )
 (!type pointer 1455 nil  gc_unused
 (!type struct 1456 
 (!type already_seen 1455)
- gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/dwarf2cfi.c:102"nil 
+ gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/dwarf2cfi.c:102"nil 
 (!fields 0 )
 nil 0 nil )
 )
@@ -25781,7 +25781,7 @@ nil 511 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1478 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/matrix-reorg.c:1382"nil 
+(!type struct 1478 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/matrix-reorg.c:1382"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -26301,11 +26301,11 @@ nil 511 nil )
 
 (!type already_seen 1091)
 
-(!type struct 1541 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/cgraph.h:307"nil 
+(!type struct 1541 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/cgraph.h:307"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1542 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/cgraph.h:300"nil 
+(!type struct 1542 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/cgraph.h:300"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -26616,7 +26616,7 @@ nil 511 nil )
 
 (!type already_seen 1087)
 
-(!type struct 1570 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/basic-block.h:602"nil 
+(!type struct 1570 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/basic-block.h:602"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -26704,7 +26704,7 @@ nil 0 nil )
 
 (!type already_seen 1037)
 
-(!type struct 1580 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/cfgloop.h:523"nil 
+(!type struct 1580 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/cfgloop.h:523"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -27711,7 +27711,7 @@ nil 511 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1639 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/tree.h:5100"nil 
+(!type struct 1639 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/tree.h:5100"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -28322,7 +28322,7 @@ nil 511 nil )
 
 (!type already_seen 281)
 
-(!type struct 1666 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/rtl.h:118"nil 
+(!type struct 1666 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/rtl.h:118"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -28380,7 +28380,7 @@ nil ))
 )
 511 nil )
 
-(!type struct 1672 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/bitmap.h:204"nil 
+(!type struct 1672 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/bitmap.h:204"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -28398,7 +28398,7 @@ nil 0 nil )
 
 (!type already_seen 60)
 
-(!type struct 1673 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/config/arm/arm.h:1445"nil 
+(!type struct 1673 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/config/arm/arm.h:1445"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -28779,11 +28779,11 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1712 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/../libcpp/include/cpplib.h:972"nil 
+(!type struct 1712 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/../libcpp/include/cpplib.h:972"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1713 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/../libcpp/include/cpplib.h:961"nil 
+(!type struct 1713 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/../libcpp/include/cpplib.h:961"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -28837,7 +28837,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1722 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/../libcpp/include/line-map.h:588"nil 
+(!type struct 1722 nil  gc_unused "anonymous:/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/../libcpp/include/line-map.h:588"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -30378,7 +30378,7 @@ nil )
 (!pair  "builtin_type"
 (!type already_seen 11)
 
-(!srcfileloc  "ada/gcc-interface/utils.c" 5103)
+(!srcfileloc  "ada/gcc-interface/utils.c" 5107)
 nil )
 (!pair  "VEC_loop_info_gc"
 (!type already_seen 936)
@@ -30443,47 +30443,47 @@ nil )
 (!pair  "intrin_binding_t"
 (!type already_seen 956)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 193)
+(!srcfileloc  "ada/gcc-interface/decl.c" 198)
 nil )
 (!pair  "VEC_variant_desc_heap"
 (!type already_seen 957)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 128)
+(!srcfileloc  "ada/gcc-interface/decl.c" 132)
 nil )
 (!pair  "VEC_variant_desc_none"
 (!type already_seen 961)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 127)
+(!srcfileloc  "ada/gcc-interface/decl.c" 131)
 nil )
 (!pair  "VEC_variant_desc_base"
 (!type already_seen 958)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 127)
+(!srcfileloc  "ada/gcc-interface/decl.c" 131)
 nil )
 (!pair  "variant_desc"
 (!type already_seen 960)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 125)
+(!srcfileloc  "ada/gcc-interface/decl.c" 129)
 nil )
 (!pair  "VEC_subst_pair_heap"
 (!type already_seen 962)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 111)
+(!srcfileloc  "ada/gcc-interface/decl.c" 115)
 nil )
 (!pair  "VEC_subst_pair_none"
 (!type already_seen 966)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 110)
+(!srcfileloc  "ada/gcc-interface/decl.c" 114)
 nil )
 (!pair  "VEC_subst_pair_base"
 (!type already_seen 963)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 110)
+(!srcfileloc  "ada/gcc-interface/decl.c" 114)
 nil )
 (!pair  "subst_pair"
 (!type already_seen 965)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 108)
+(!srcfileloc  "ada/gcc-interface/decl.c" 112)
 nil )
 (!pair  "VEC_edge_growth_cache_entry_heap"
 (!type already_seen 974)
@@ -30913,7 +30913,7 @@ nil )
 (!pair  "arm_mangle_map_entry"
 (!type already_seen 1198)
 
-(!srcfileloc  "config/arm/arm.c" 24535)
+(!srcfileloc  "config/arm/arm.c" 24534)
 nil )
 (!pair  "builtin_arg"
 (!type already_seen 11)
@@ -31433,22 +31433,22 @@ nil )
 (!pair  "VEC_dchar_p_heap"
 (!type already_seen 1371)
 
-(!srcfileloc  "dwarf2out.c" 18320)
+(!srcfileloc  "dwarf2out.c" 18326)
 nil )
 (!pair  "VEC_dchar_p_none"
 (!type already_seen 1374)
 
-(!srcfileloc  "dwarf2out.c" 18319)
+(!srcfileloc  "dwarf2out.c" 18325)
 nil )
 (!pair  "VEC_dchar_p_base"
 (!type already_seen 1372)
 
-(!srcfileloc  "dwarf2out.c" 18319)
+(!srcfileloc  "dwarf2out.c" 18325)
 nil )
 (!pair  "dchar_p"
 (!type already_seen 15)
 
-(!srcfileloc  "dwarf2out.c" 18318)
+(!srcfileloc  "dwarf2out.c" 18324)
 nil )
 (!pair  "cached_dw_loc_list"
 (!type already_seen 1382)
@@ -35066,12 +35066,12 @@ nil )
 (!pair  "java_iface_lookup_fn"
 (!type already_seen 26)
 
-(!srcfileloc  "cp/call.c" 6803)
+(!srcfileloc  "cp/call.c" 6807)
 nil )
 (!pair  "default_arg_context"
 (!type already_seen 53)
 
-(!srcfileloc  "cp/call.c" 6111)
+(!srcfileloc  "cp/call.c" 6115)
 nil )
 (!pair  "unemitted_tinfo_decls"
 (!type already_seen 53)
@@ -35224,14 +35224,14 @@ nil )
 (!type already_seen 26)
 )
 
-(!srcfileloc  "ada/gcc-interface/utils.c" 5240)
+(!srcfileloc  "ada/gcc-interface/utils.c" 5244)
 nil )
 (!pair  "builtin_types"
 (!type array 1834 nil  gc_used "(int) BT_LAST + 1" 
 (!type already_seen 26)
 )
 
-(!srcfileloc  "ada/gcc-interface/utils.c" 5106)
+(!srcfileloc  "ada/gcc-interface/utils.c" 5110)
 nil )
 (!pair  "dummy_global"
 (!type already_seen 26)
@@ -35392,7 +35392,7 @@ nil )
 (!pair  "annotate_value_cache"
 (!type already_seen 1756)
 
-(!srcfileloc  "ada/gcc-interface/decl.c" 132)
+(!srcfileloc  "ada/gcc-interface/decl.c" 136)
 
 (!options 
 (!option param_is type 
@@ -35539,7 +35539,7 @@ nil )
 (!pair  "critical_name_mutexes"
 (!type already_seen 1750)
 
-(!srcfileloc  "omp-low.c" 6134)
+(!srcfileloc  "omp-low.c" 6146)
 
 (!options 
 (!option param2_is type 
@@ -35554,7 +35554,7 @@ nil )
 (!pair  "tmp_ompfn_id_num"
 (!type already_seen 11)
 
-(!srcfileloc  "omp-low.c" 1534)
+(!srcfileloc  "omp-low.c" 1546)
 nil )
 (!pair  "parallelized_functions"
 (!type already_seen 139)
@@ -35954,7 +35954,7 @@ nil )
 (!pair  "gcc_eh_personality_decl"
 (!type already_seen 26)
 
-(!srcfileloc  "tree.c" 11212)
+(!srcfileloc  "tree.c" 11215)
 nil )
 (!pair  "nonstandard_integer_type_cache"
 (!type array 1843 nil  gc_used "2 * MAX_INT_CACHED_PREC + 2" 
@@ -36391,57 +36391,57 @@ nil )
 (!pair  "generic_type_instances"
 (!type already_seen 53)
 
-(!srcfileloc  "dwarf2out.c" 3187)
+(!srcfileloc  "dwarf2out.c" 3193)
 nil )
 (!pair  "tmpl_value_parm_die_table"
 (!type already_seen 1391)
 
-(!srcfileloc  "dwarf2out.c" 3181)
+(!srcfileloc  "dwarf2out.c" 3187)
 nil )
 (!pair  "file_table_last_lookup"
 (!type already_seen 521)
 
-(!srcfileloc  "dwarf2out.c" 3179)
+(!srcfileloc  "dwarf2out.c" 3185)
 nil )
 (!pair  "label_num"
 (!type already_seen 11)
 
-(!srcfileloc  "dwarf2out.c" 3176)
+(!srcfileloc  "dwarf2out.c" 3182)
 nil )
 (!pair  "last_emitted_file"
 (!type already_seen 521)
 
-(!srcfileloc  "dwarf2out.c" 3173)
+(!srcfileloc  "dwarf2out.c" 3179)
 nil )
 (!pair  "poc_label_num"
 (!type already_seen 11)
 
-(!srcfileloc  "dwarf2out.c" 3167)
+(!srcfileloc  "dwarf2out.c" 3173)
 nil )
 (!pair  "loclabel_num"
 (!type already_seen 11)
 
-(!srcfileloc  "dwarf2out.c" 3164)
+(!srcfileloc  "dwarf2out.c" 3170)
 nil )
 (!pair  "have_location_lists"
 (!type already_seen 11)
 
-(!srcfileloc  "dwarf2out.c" 3161)
+(!srcfileloc  "dwarf2out.c" 3167)
 nil )
 (!pair  "ranges_by_label_in_use"
 (!type already_seen 11)
 
-(!srcfileloc  "dwarf2out.c" 3154)
+(!srcfileloc  "dwarf2out.c" 3160)
 nil )
 (!pair  "ranges_by_label_allocated"
 (!type already_seen 11)
 
-(!srcfileloc  "dwarf2out.c" 3151)
+(!srcfileloc  "dwarf2out.c" 3157)
 nil )
 (!pair  "ranges_by_label"
 (!type already_seen 1428)
 
-(!srcfileloc  "dwarf2out.c" 3148)
+(!srcfileloc  "dwarf2out.c" 3154)
 
 (!options 
 (!option length string  "ranges_by_label_allocated")
@@ -36450,17 +36450,17 @@ nil )
 (!pair  "ranges_table_in_use"
 (!type already_seen 11)
 
-(!srcfileloc  "dwarf2out.c" 3144)
+(!srcfileloc  "dwarf2out.c" 3150)
 nil )
 (!pair  "ranges_table_allocated"
 (!type already_seen 11)
 
-(!srcfileloc  "dwarf2out.c" 3141)
+(!srcfileloc  "dwarf2out.c" 3147)
 nil )
 (!pair  "ranges_table"
 (!type already_seen 1430)
 
-(!srcfileloc  "dwarf2out.c" 3138)
+(!srcfileloc  "dwarf2out.c" 3144)
 
 (!options 
 (!option length string  "ranges_table_allocated")

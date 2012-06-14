@@ -44,6 +44,7 @@
 #define HAVE_movmem8b (TARGET_THUMB1)
 #define HAVE_cbranchsi4_insn (TARGET_THUMB1)
 #define HAVE_cbranchsi4_scratch (TARGET_THUMB1)
+#define HAVE_arm_cond_branch (TARGET_32BIT)
 #define HAVE_cstoresi_nltu_thumb1 (TARGET_THUMB1)
 #define HAVE_cstoresi_ltu_thumb1 (TARGET_THUMB1)
 #define HAVE_thumb1_addsi3_addgeu (TARGET_THUMB1)
@@ -2316,6 +2317,7 @@ extern rtx        gen_movmem12b                         (rtx, rtx, rtx, rtx);
 extern rtx        gen_movmem8b                          (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchsi4_insn                   (rtx, rtx, rtx, rtx);
 extern rtx        gen_cbranchsi4_scratch                (rtx, rtx, rtx, rtx, rtx);
+extern rtx        gen_arm_cond_branch                   (rtx, rtx, rtx);
 extern rtx        gen_cstoresi_nltu_thumb1              (rtx, rtx, rtx);
 extern rtx        gen_cstoresi_ltu_thumb1               (rtx, rtx, rtx);
 extern rtx        gen_thumb1_addsi3_addgeu              (rtx, rtx, rtx, rtx, rtx);

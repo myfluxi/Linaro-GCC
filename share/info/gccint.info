@@ -1,5 +1,5 @@
 This is doc/gccint.info, produced by makeinfo version 4.13 from
-/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.05/gcc/doc/gccint.texi.
+/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.06/gcc/doc/gccint.texi.
 
 Copyright (C) 1988, 1989, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2010 Free
@@ -61,7 +61,7 @@ Introduction
 This manual documents the internals of the GNU compilers, including how
 to port them to new targets and some information about how to write
 front ends for new languages.  It corresponds to the compilers
-(Linaro-A9-XX.2012.05) version 4.7.1.  The use of the GNU compilers is
+(Linaro-A9-XX.2012.06) version 4.7.1.  The use of the GNU compilers is
 documented in a separate manual.  *Note Introduction: (gcc)Top.
 
  This manual is mainly a reference manual rather than a tutorial.  It
@@ -37206,6 +37206,27 @@ Target makefile fragments can set these Makefile variables.
      these options enabled.  Therefore `MULTILIB_EXCEPTIONS' is set to:
           *mthumb/*mhard-float*
 
+`MULTILIB_REQUIRED'
+     Sometimes when there are only a few combinations are required, it
+     would be a big effort to come up with a `MULTILIB_EXCEPTIONS' list
+     to cover all undesired ones.  In such a case, just listing all the
+     required combinations in `MULTILIB_REQUIRED' would be more
+     straightforward.
+
+     The way to specify the entries in `MULTILIB_REQUIRED' is same with
+     the way used for `MULTILIB_EXCEPTIONS', only this time what are
+     required will be specified.  Suppose there are multiple sets of
+     `MULTILIB_OPTIONS' and only two combinations are required, one for
+     ARMv7-M and one for ARMv7-R with hard floating-point ABI and FPU,
+     the `MULTILIB_REQUIRED' can be set to:
+          `MULTILIB_REQUIRED' =  mthumb/march=armv7-m
+          `MULTILIB_REQUIRED' += march=armv7-r/mfloat-abi=hard/mfpu=vfpv3-d16
+
+     The `MULTILIB_REQUIRED' can be used together with
+     `MULTILIB_EXCEPTIONS'.  The option combinations generated from
+     `MULTILIB_OPTIONS' will be filtered by `MULTILIB_EXCEPTIONS' and
+     then by `MULTILIB_REQUIRED'.
+
 `MULTILIB_EXTRA_OPTS'
      Sometimes it is desirable that when building multiple versions of
      `libgcc.a' certain options should always be passed on to the
@@ -46657,9 +46678,10 @@ Concept Index
 * MULTILIB_DEFAULTS:                     Driver.             (line  259)
 * MULTILIB_DIRNAMES:                     Target Fragment.    (line   44)
 * MULTILIB_EXCEPTIONS:                   Target Fragment.    (line   64)
-* MULTILIB_EXTRA_OPTS:                   Target Fragment.    (line   76)
+* MULTILIB_EXTRA_OPTS:                   Target Fragment.    (line   97)
 * MULTILIB_MATCHES:                      Target Fragment.    (line   57)
 * MULTILIB_OPTIONS:                      Target Fragment.    (line   24)
+* MULTILIB_REQUIRED:                     Target Fragment.    (line   76)
 * multiple alternative constraints:      Multi-Alternative.  (line    6)
 * MULTIPLE_SYMBOL_SPACES:                Misc.               (line  493)
 * multiplication:                        Arithmetic.         (line   92)
@@ -47306,7 +47328,7 @@ Concept Index
                                                              (line    6)
 * special:                               GTY Options.        (line  290)
 * special predicates:                    Predicates.         (line   31)
-* SPECS:                                 Target Fragment.    (line   83)
+* SPECS:                                 Target Fragment.    (line  104)
 * speed of instructions:                 Costs.              (line    6)
 * split_block:                           Maintaining the CFG.
                                                              (line  110)
@@ -48674,23 +48696,23 @@ Node: Filesystem1620262
 Node: Host Misc1624377
 Node: Fragments1626826
 Node: Target Fragment1628021
-Node: Host Fragment1632908
-Node: Collect21633148
-Node: Header Dirs1635784
-Node: Type Information1637207
-Node: GTY Options1639564
-Node: GGC Roots1653392
-Node: Files1654112
-Node: Invoking the garbage collector1656858
-Node: Troubleshooting1658361
-Node: Plugins1659437
-Node: LTO1676315
-Node: Funding1701361
-Node: GNU Project1703844
-Node: Copying1704493
-Node: GNU Free Documentation License1742024
-Node: Contributors1767164
-Node: Option Index1804569
-Node: Concept Index1805373
+Node: Host Fragment1633988
+Node: Collect21634228
+Node: Header Dirs1636864
+Node: Type Information1638287
+Node: GTY Options1640644
+Node: GGC Roots1654472
+Node: Files1655192
+Node: Invoking the garbage collector1657938
+Node: Troubleshooting1659441
+Node: Plugins1660517
+Node: LTO1677395
+Node: Funding1702441
+Node: GNU Project1704924
+Node: Copying1705573
+Node: GNU Free Documentation License1743104
+Node: Contributors1768244
+Node: Option Index1805649
+Node: Concept Index1806453
 
 End Tag Table
