@@ -1,5 +1,5 @@
 This is doc/gccinstall.info, produced by makeinfo version 4.13 from
-/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2012.11/gcc/doc/install.texi.
+/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2013.03/gcc/doc/install.texi.
 
 Copyright (C) 1988, 1989, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
@@ -817,10 +817,28 @@ option.
      `gnu2', which select between the original GNU dialect and the GNU
      TLS descriptor-based dialect.
 
+`--enable-multiarch'
+     Specify whether to enable or disable multiarch support.  The
+     default is to check for glibc start files in a multiarch location,
+     and enable it if the files are found.  The auto detection is
+     enabled for native builds, and for cross builds configured with
+     `--with-sysroot', and without `--with-native-system-header-dir'.
+     More documentation about multiarch can be found at
+     `http://wiki.debian.org/Multiarch'.
+
 `--disable-multilib'
      Specify that multiple target libraries to support different target
      variants, calling conventions, etc. should not be built.  The
      default is to build a predefined set of them.
+
+`--enable-multiarch'
+     Specify whether to enable or disable multiarch support.  The
+     default is to check for glibc start files in a multiarch location,
+     and enable it if the files are found.  The auto detection is
+     enabled for native builds, and for cross builds configured with
+     `--with-sysroot', and without `--with-native-system-header-dir'.
+     More documentation about multiarch can be found at
+     `http://wiki.debian.org/Multiarch'.
 
      Some targets provide finer-grained control over which multilibs
      are built (e.g., `--disable-softfloat'):
@@ -1573,6 +1591,16 @@ The following options only apply to building cross compilers.
      Specifies that `newlib' is being used as the target C library.
      This causes `__eprintf' to be omitted from `libgcc.a' on the
      assumption that it will be provided by `newlib'.
+
+`--with-avrlibc'
+     Specifies that `AVR-Libc' is being used as the target C library.
+     This causes float support functions like `__addsf3' to be omitted
+     from `libgcc.a' on the assumption that it will be provided by
+     `libm.a'.  For more technical details, cf. PR54461.  This option
+     is only supported for the AVR target.  It is not supported for
+     RTEMS configurations, which currently use newlib.  The option is
+     supported since version 4.7.2 and is the default in 4.8.0 and
+     newer.
 
 `--with-build-time-tools=DIR'
      Specifies where to find the set of target tools (assembler,
@@ -2644,7 +2672,7 @@ arm-*-eabi
 
 ARM-family processors.  Subtargets that use the ELF object format
 require GNU binutils 2.13 or newer.  Such subtargets include:
-`arm-*-netbsdelf', `arm-*-*linux-gnueabi' and `arm-*-rtemseabi'.
+`arm-*-netbsdelf', `arm-*-*linux-gnueabi*' and `arm-*-rtemseabi'.
 
 avr
 ===
@@ -3680,9 +3708,10 @@ mishandled unaligned relocations on `sparc-*-*' targets.
 sparc64-*-solaris2*
 ===================
 
-When configuring the GNU Multiple Precision Library (GMP) or the MPFR
-library, the canonical target triplet must be specified as the `build'
-parameter on the configure line.  For example on a Solaris 9 system:
+When configuring the GNU Multiple Precision Library (GMP), the MPFR
+library or the MPC library, the canonical target triplet must be
+specified as the `build' parameter on the configure line.  For example
+on a Solaris 9 system:
 
      % ./configure --build=sparc64-sun-solaris2.9 --prefix=xxx
 
@@ -4579,7 +4608,7 @@ Concept Index
 * Menu:
 
 * Binaries:                              Binaries.           (line    6)
-* build_configargs:                      Configuration.      (line 1439)
+* build_configargs:                      Configuration.      (line 1467)
 * Configuration:                         Configuration.      (line    6)
 * configurations supported by GCC:       Configurations.     (line    6)
 * Downloading GCC:                       Downloading the source.
@@ -4589,7 +4618,7 @@ Concept Index
 * FDL, GNU Free Documentation License:   GNU Free Documentation License.
                                                              (line    6)
 * Host specific installation:            Specific.           (line    6)
-* host_configargs:                       Configuration.      (line 1443)
+* host_configargs:                       Configuration.      (line 1471)
 * Installing GCC: Binaries:              Binaries.           (line    6)
 * Installing GCC: Building:              Building.           (line    6)
 * Installing GCC: Configuration:         Configuration.      (line    6)
@@ -4599,7 +4628,7 @@ Concept Index
 * Specific installation notes:           Specific.           (line    6)
 * Target specific installation:          Specific.           (line    6)
 * Target specific installation notes:    Specific.           (line    6)
-* target_configargs:                     Configuration.      (line 1447)
+* target_configargs:                     Configuration.      (line 1475)
 * Testing:                               Testing.            (line    6)
 * Testsuite:                             Testing.            (line    6)
 
@@ -4614,85 +4643,85 @@ Node: Configuration16232
 Ref: with-gnu-as31238
 Ref: with-as32136
 Ref: with-gnu-ld33549
-Node: Building79806
-Node: Testing95291
-Node: Final install103140
-Node: Binaries108454
-Node: Specific110055
-Ref: alpha-x-x110561
-Ref: alpha-dec-osf51111050
-Ref: amd64-x-solaris210113586
-Ref: arm-x-eabi113689
-Ref: avr113906
-Ref: bfin114546
-Ref: cr16114788
-Ref: cris115203
-Ref: dos116019
-Ref: epiphany-x-elf116342
-Ref: x-x-freebsd116447
-Ref: h8300-hms118284
-Ref: hppa-hp-hpux118636
-Ref: hppa-hp-hpux10121007
-Ref: hppa-hp-hpux11121420
-Ref: x-x-linux-gnu127079
-Ref: ix86-x-linux127272
-Ref: ix86-x-solaris289127585
-Ref: ix86-x-solaris210128429
-Ref: ia64-x-linux129620
-Ref: ia64-x-hpux130390
-Ref: x-ibm-aix130945
-Ref: iq2000-x-elf137715
-Ref: lm32-x-elf137855
-Ref: lm32-x-uclinux137959
-Ref: m32c-x-elf138087
-Ref: m32r-x-elf138189
-Ref: m68k-x-x138291
-Ref: m68k-x-uclinux139329
-Ref: mep-x-elf139575
-Ref: microblaze-x-elf139685
-Ref: mips-x-x139804
-Ref: mips-sgi-irix5142200
-Ref: mips-sgi-irix6142280
-Ref: moxie-x-elf145504
-Ref: powerpc-x-x145624
-Ref: powerpc-x-darwin145829
-Ref: powerpc-x-elf146323
-Ref: powerpc-x-linux-gnu146408
-Ref: powerpc-x-netbsd146503
-Ref: powerpc-x-eabisim146591
-Ref: powerpc-x-eabi146717
-Ref: powerpcle-x-elf146793
-Ref: powerpcle-x-eabisim146885
-Ref: powerpcle-x-eabi147018
-Ref: rl78-x-elf147101
-Ref: rx-x-elf147207
-Ref: s390-x-linux147406
-Ref: s390x-x-linux147478
-Ref: s390x-ibm-tpf147565
-Ref: x-x-solaris2147696
-Ref: sparc-x-x153263
-Ref: sparc-sun-solaris2153765
-Ref: sparc-sun-solaris210156519
-Ref: sparc-x-linux156895
-Ref: sparc64-x-solaris2157120
-Ref: sparcv9-x-solaris2157756
-Ref: c6x-x-x157843
-Ref: tilegx-*-linux157934
-Ref: tilepro-*-linux158053
-Ref: x-x-vxworks158174
-Ref: x86-64-x-x159696
-Ref: x86-64-x-solaris210160024
-Ref: xtensa-x-elf160686
-Ref: xtensa-x-linux161357
-Ref: windows161698
-Ref: x-x-cygwin163635
-Ref: x-x-interix164188
-Ref: x-x-mingw32164497
-Ref: older164723
-Ref: elf166840
-Node: Old167098
-Node: Configurations170235
-Node: GNU Free Documentation License173776
-Node: Concept Index198923
+Node: Building81243
+Node: Testing96728
+Node: Final install104577
+Node: Binaries109891
+Node: Specific111492
+Ref: alpha-x-x111998
+Ref: alpha-dec-osf51112487
+Ref: amd64-x-solaris210115023
+Ref: arm-x-eabi115126
+Ref: avr115344
+Ref: bfin115984
+Ref: cr16116226
+Ref: cris116641
+Ref: dos117457
+Ref: epiphany-x-elf117780
+Ref: x-x-freebsd117885
+Ref: h8300-hms119722
+Ref: hppa-hp-hpux120074
+Ref: hppa-hp-hpux10122445
+Ref: hppa-hp-hpux11122858
+Ref: x-x-linux-gnu128517
+Ref: ix86-x-linux128710
+Ref: ix86-x-solaris289129023
+Ref: ix86-x-solaris210129867
+Ref: ia64-x-linux131058
+Ref: ia64-x-hpux131828
+Ref: x-ibm-aix132383
+Ref: iq2000-x-elf139153
+Ref: lm32-x-elf139293
+Ref: lm32-x-uclinux139397
+Ref: m32c-x-elf139525
+Ref: m32r-x-elf139627
+Ref: m68k-x-x139729
+Ref: m68k-x-uclinux140767
+Ref: mep-x-elf141013
+Ref: microblaze-x-elf141123
+Ref: mips-x-x141242
+Ref: mips-sgi-irix5143638
+Ref: mips-sgi-irix6143718
+Ref: moxie-x-elf146942
+Ref: powerpc-x-x147062
+Ref: powerpc-x-darwin147267
+Ref: powerpc-x-elf147761
+Ref: powerpc-x-linux-gnu147846
+Ref: powerpc-x-netbsd147941
+Ref: powerpc-x-eabisim148029
+Ref: powerpc-x-eabi148155
+Ref: powerpcle-x-elf148231
+Ref: powerpcle-x-eabisim148323
+Ref: powerpcle-x-eabi148456
+Ref: rl78-x-elf148539
+Ref: rx-x-elf148645
+Ref: s390-x-linux148844
+Ref: s390x-x-linux148916
+Ref: s390x-ibm-tpf149003
+Ref: x-x-solaris2149134
+Ref: sparc-x-x154701
+Ref: sparc-sun-solaris2155203
+Ref: sparc-sun-solaris210157957
+Ref: sparc-x-linux158333
+Ref: sparc64-x-solaris2158558
+Ref: sparcv9-x-solaris2159211
+Ref: c6x-x-x159298
+Ref: tilegx-*-linux159389
+Ref: tilepro-*-linux159508
+Ref: x-x-vxworks159629
+Ref: x86-64-x-x161151
+Ref: x86-64-x-solaris210161479
+Ref: xtensa-x-elf162141
+Ref: xtensa-x-linux162812
+Ref: windows163153
+Ref: x-x-cygwin165090
+Ref: x-x-interix165643
+Ref: x-x-mingw32165952
+Ref: older166178
+Ref: elf168295
+Node: Old168553
+Node: Configurations171690
+Node: GNU Free Documentation License175231
+Node: Concept Index200378
 
 End Tag Table

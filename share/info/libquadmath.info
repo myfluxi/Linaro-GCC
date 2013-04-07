@@ -1,5 +1,5 @@
 This is libquadmath.info, produced by makeinfo version 4.13 from
-/work/release/4.7-2012.11/gcc-linaro-4.7-2012.11/libquadmath/libquadmath.texi.
+/work/release/4.7-2013.03/gcc-linaro-4.7-2013.03/libquadmath/libquadmath.texi.
 
 Copyright (C) 2010 Free Software Foundation, Inc.
 
@@ -106,9 +106,9 @@ defined.
 
 `M_PIq': pi
 
-`M_PI_2q': two pi
+`M_PI_2q': pi divided by two
 
-`M_PI_4q': four pi
+`M_PI_4q': pi divided by four
 
 `M_1_PIq': one over pi
 
@@ -914,11 +914,11 @@ reported via `http://gcc.gnu.org/bugs.html'.
 Tag Table:
 Node: Top1686
 Node: Typedef and constants2420
-Node: Math Library Routines3838
-Node: I/O Library Routines7643
-Node: strtoflt1287968
-Node: quadmath_snprintf8726
-Node: GNU Free Documentation License10934
-Node: Reporting Bugs36100
+Node: Math Library Routines3860
+Node: I/O Library Routines7665
+Node: strtoflt1287990
+Node: quadmath_snprintf8748
+Node: GNU Free Documentation License10956
+Node: Reporting Bugs36122
 
 End Tag Table
