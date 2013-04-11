@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/fluxi/android/xxChain/linaroXX-4.7-2013.03/libexec/gcc/arm-eabi/4.7.3'
+libdir='/home/fluxi/android/xxChain/linaroXX-4.7-2013.04/libexec/gcc/arm-eabi/4.7.3'

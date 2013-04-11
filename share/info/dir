@@ -19,10 +19,10 @@ GNU Libraries
 
 Software development
 * As: (as).                     The GNU assembler.
+* Bfd: (bfd).                   The Binary File Descriptor library.
 * Cpp: (cpp).                   The GNU C preprocessor.
 * Gas: (as).                    The GNU assembler.
 * g++: (gcc).                   The GNU C++ compiler.
 * gcc: (gcc).                   The GNU Compiler Collection.
-* gccinstall: (gccinstall).     Installing the GNU Compiler Collection.
 * gccint: (gccint).             Internals of the GNU Compiler Collection.
-* gprof: (gprof).               Profiling your program's execution
+gccint: (gccint).             Internals of the GNU Compiler Collection.
