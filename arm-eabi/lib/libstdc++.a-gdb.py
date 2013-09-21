@@ -1,5 +1,5 @@
 # -*- python -*-
-# Copyright (C) 2009, 2010 Free Software Foundation, Inc.
+# Copyright (C) 2009-2013 Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,8 @@ import gdb
 import os
 import os.path
 
-pythondir = '/home/fluxi/android/xxChain/linaroXX-4.7-2013.04/share/gcc-4.7.3/python'
-libdir = '/home/fluxi/android/xxChain/linaroXX-4.7-2013.04/arm-eabi/lib'
+pythondir = '/home/fluxi/android/xxChain/linaroXX-4.8-2013.09/share/gcc-4.8.2/python'
+libdir = '/home/fluxi/android/xxChain/linaroXX-4.8-2013.09/arm-eabi/lib'
 
 # This file might be loaded when there is no current objfile.  This
 # can happen if the user loads it manually.  In this case we don't

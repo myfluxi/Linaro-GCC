@@ -1,5 +1,5 @@
 This is doc/cppinternals.info, produced by makeinfo version 4.13 from
-/home/fluxi/android/xxChain/source/gcc-linaro-4.7-2013.04/gcc/doc/cppinternals.texi.
+/home/fluxi/android/xxChain/source/gcc-linaro-4.8-2013.09/gcc/doc/cppinternals.texi.
 
 INFO-DIR-SECTION Software development
 START-INFO-DIR-ENTRY
@@ -8,8 +8,7 @@ END-INFO-DIR-ENTRY
 
    This file documents the internals of the GNU C Preprocessor.
 
-   Copyright 2000, 2001, 2002, 2004, 2005, 2006, 2007 Free Software
-Foundation, Inc.
+   Copyright (C) 2000-2013 Free Software Foundation, Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -1020,17 +1019,17 @@ Concept Index
 
 
 Tag Table:
-Node: Top1006
-Node: Conventions2691
-Node: Lexer3633
-Ref: Invalid identifiers11546
-Ref: Lexing a line13495
-Node: Hash Nodes18268
-Node: Macro Expansion21147
-Node: Token Spacing30094
-Node: Line Numbering35954
-Node: Guard Macros40039
-Node: Files44830
-Node: Concept Index48296
+Node: Top979
+Node: Conventions2664
+Node: Lexer3606
+Ref: Invalid identifiers11519
+Ref: Lexing a line13468
+Node: Hash Nodes18241
+Node: Macro Expansion21120
+Node: Token Spacing30067
+Node: Line Numbering35927
+Node: Guard Macros40012
+Node: Files44803
+Node: Concept Index48269
 
 End Tag Table
